@@ -72,9 +72,8 @@ class SideBar extends Component {
       <Container>
         <Content
           bounces={false}
-          style={{ flex: 1, backgroundColor: "#fff", top: 18 }}
+          style={{ flex: 1, backgroundColor: "#fff", top: -1 }}
         >
-          {/*原来 -1 改成 18 */}
 
           {/*<Image source={drawerCover} style={styles.drawerCover} />*/}
           {/*<Image square style={styles.drawerImage} source={drawerImage} />*/}
