@@ -74,7 +74,8 @@ export default class MySwiper extends Component {
   render () {
     return (
         <View style={{flex: 1}}>
-          <Swiper loadMinimal loadMinimalSize={1} style={{flex: 1}}  autoplay>
+          {/*<Swiper loadMinimal loadMinimalSize={1} style={{flex: 1}}  autoplay>*/}
+          <Swiper loadMinimal loadMinimalSize={1} autoplay>
             {
               this.state.imgList.map((item, i) => <Slide
                   loadHandle={this.loadHandle}
