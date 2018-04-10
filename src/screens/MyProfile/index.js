@@ -45,7 +45,7 @@ export default class MyProfile extends Component {
       <Container style={stylesContainer.container}>
 
 
-        <Header />
+        <Header navigate={this.props.navigation.navigate}/>
 
       <ScrollView style={styles.scroll}>
         <View style={styles.userRow}>
