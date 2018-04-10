@@ -14,7 +14,7 @@ import {
   Body,
   Right
 } from "native-base";
-import styles from "./styles";
+import stylesContainer from "../styles.js";
 
 import MySwiper from "./swiper/index";
 import {Grid, Row} from "react-native-easy-grid";
@@ -40,7 +40,7 @@ const datas = [
 class Courses extends Component {
   render() {
     return (
-      <Container style={styles.container}>
+      <Container style={stylesContainer.container}>
         <Header>
           <Left>
             <Button

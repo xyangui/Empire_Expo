@@ -20,6 +20,7 @@ import {
   List
 } from "native-base";
 import styles from "./styles";
+import stylesContainer from "../styles";
 
 const cardImage = require("../../../assets/mycourse_cover.png");
 
@@ -44,7 +45,7 @@ const datas = [
 class MyCourses extends Component {
   render() {
     return (
-        <Container style={styles.container}>
+        <Container style={stylesContainer.container}>
           <Header>
             <Left>
               <Button

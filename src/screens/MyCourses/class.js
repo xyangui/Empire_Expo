@@ -2,6 +2,7 @@
  * 我的课程里面的 CLASS 页面
  */
 import React, {Component} from "react";
+import {View} from 'react-native';
 import {
   Container,
   Header,
@@ -59,47 +60,41 @@ class MyClass extends Component {
     const {params} = this.props.navigation.state;
 
     return (
-        <Container style={styles.container}>
-          <Header>
-            <Left>
-              <Button transparent onPress={() => this.props.navigation.goBack()}>
-                <Icon name="arrow-back"/>
-              </Button>
-            </Left>
-            <Body>
-            <Title>{params.CoursesName}</Title>
-            </Body>
-            <Right/>
-          </Header>
+      <Container style={styles.container}>
 
-          <List dataArray={datas}
-                renderRow={data =>
+        <Header>
+          <Left>
+            <Button transparent onPress={() => this.props.navigation.goBack()}>
+              <Icon name="arrow-back"/>
+            </Button>
+          </Left>
+          <Body>
+          <Title>{params.CoursesName}</Title>
+          </Body>
+          <Right/>
+        </Header>
 
-                    <Content>
+        <List dataArray={datas}
+              renderRow={data =>
 
-                      <ListItem itemDivider>
-                        <Text>{data.title}</Text>
-                      </ListItem>
+                <View>
+                  <ListItem itemDivider>
+                    <Text>{data.title}</Text>
+                  </ListItem>
 
-                      <List dataArray={data.text}
-                            renderRow={datatext =>
+                  <List dataArray={data.text}
+                        renderRow={datatext =>
 
-                                <Content>
+                          <ListItem>
+                            <Text>{datatext}</Text>
+                          </ListItem>
+                        }
+                  />
+                </View>
+              }
+        />
 
-                                  <ListItem>
-                                    <Text>{datatext}</Text>
-                                  </ListItem>
-                                  {/*{this._getClassNameArray(datatext)}*/}
-
-                                </Content>
-                            }
-                      />
-
-                    </Content>
-                }
-          />
-
-        </Container>
+      </Container>
     );
   }
 }

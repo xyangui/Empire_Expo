@@ -45,7 +45,7 @@ const datas = [
 
   {
     name: "My Profile",
-    route: "Header",
+    route: "MyProfile",
     icon: "ios-person",
     bg: "#477EEA",
     types: "8"
