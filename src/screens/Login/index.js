@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -10,6 +11,7 @@ import {
   UIManager,
   KeyboardAvoidingView,
 } from 'react-native';
+
 import { Font } from 'expo';
 import { Input, Button } from 'react-native-elements'
 
@@ -37,7 +39,7 @@ TabSelector.propTypes = {
   selected: PropTypes.bool.isRequired,
 };
 
-export default class LoginScreen2 extends Component {
+export default class Login extends Component {
 
   constructor(props) {
     super(props);

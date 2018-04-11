@@ -1,6 +1,7 @@
 
-import React, { Component } from "react";
-import { Image } from "react-native";
+import React, { Component } from 'react';
+import { Image } from 'react-native';
+
 import {
   Content,
   Text,
@@ -11,10 +12,9 @@ import {
   Left,
   Right,
   Badge
-} from "native-base";
-import styles from "./style";
+} from 'native-base';
 
-import MyCourseCard from "../MyCourses/index";
+import styles from './style';
 
 /**
  * 更换图标网址
@@ -26,7 +26,6 @@ import MyCourseCard from "../MyCourses/index";
 
 const coverLogo = require("../../../assets/cover_logo.jpeg");
 const empireLogo = require("../../../assets/empire_logo.png");
-
 
 const datas = [
   {
@@ -58,7 +57,7 @@ const datas = [
   }
 ];
 
-class SideBar extends Component {
+export default class SideBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -122,5 +121,3 @@ class SideBar extends Component {
     );
   }
 }
-
-export default SideBar;

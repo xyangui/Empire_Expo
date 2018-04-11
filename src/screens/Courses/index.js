@@ -1,11 +1,9 @@
-import React, {Component} from "react";
+
+import React, {Component} from 'react';
+
 import {
   Container,
-  Header,
-  Title,
-  Content,
   Button,
-  Icon,
   List,
   ListItem,
   Text,
@@ -13,48 +11,38 @@ import {
   Left,
   Body,
   Right
-} from "native-base";
-import stylesContainer from "../styles.js";
+} from 'native-base';
 
-import MySwiper from "./swiper/index";
-import {Grid, Row} from "react-native-easy-grid";
+import {Grid, Row} from 'react-native-easy-grid';
+import MySwiper from './swiper/index';
+
+import Header from '../HeaderMenu';
+import stylesContainer from '../styles.js';
 
 const datas = [
   {
-    img: require("../../../assets/logo_naati.png"),
+    img: require('../../../assets/logo_naati.png'),
     text: "NATTI",
     note: "This is NATTI!"
   },
   {
-    img: require("../../../assets/logo_cclt.jpg"),
+    img: require('../../../assets/logo_cclt.jpg'),
     text: "CCLT",
     note: "This is CCLT!"
   },
   {
-    img: require("../../../assets/logo_pte.jpg"),
+    img: require('../../../assets/logo_pte.jpg'),
     text: "PTE",
     note: "This is PTE!"
   }
 ];
 
-class Courses extends Component {
+export default class Courses extends Component {
   render() {
     return (
       <Container style={stylesContainer.container}>
-        <Header>
-          <Left>
-            <Button
-              transparent
-              onPress={() => this.props.navigation.navigate("DrawerOpen")}
-            >
-              <Icon name="ios-menu"/>
-            </Button>
-          </Left>
-          <Body>
-          <Title>Courses</Title>
-          </Body>
-          <Right/>
-        </Header>
+
+        <Header navig={this.props.navigation.navigate} title='Courses'/>
 
         {/*<Content style={{flex: 1}}>*/}
         <Grid>
@@ -64,7 +52,6 @@ class Courses extends Component {
           </Row>
 
           <Row size={4}>
-            {/*height={500}，轮播图和下面列表，上下高度看起来合适，不知如何规范调整？*/}
             <List
               dataArray={datas}
               renderRow={data =>
@@ -95,5 +82,3 @@ class Courses extends Component {
     );
   }
 }
-
-export default Courses;

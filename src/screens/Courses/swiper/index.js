@@ -1,10 +1,7 @@
 
 import React, { Component } from 'react';
-import {
-  View,
-  Image,
-  Dimensions
-} from 'react-native';
+import { View, Image, Dimensions } from 'react-native';
+
 import Swiper from 'react-native-swiper';
 
 const { width } = Dimensions.get('window');
@@ -74,6 +71,7 @@ export default class MySwiper extends Component {
   render () {
     return (
         <View style={{flex: 1}}>
+
           {/*<Swiper loadMinimal loadMinimalSize={1} style={{flex: 1}}  autoplay>*/}
           <Swiper loadMinimal loadMinimalSize={1} autoplay>
             {
@@ -85,10 +83,6 @@ export default class MySwiper extends Component {
                   key={i} />)
             }
           </Swiper>
-
-          {/*<View style={{flex: 1}}>*/}
-
-          {/*</View>*/}
 
         </View>
     )

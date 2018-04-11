@@ -1,3 +1,4 @@
+
 const React = require("react-native");
 const { Platform, Dimensions } = React;
 

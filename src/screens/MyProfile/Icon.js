@@ -1,7 +1,9 @@
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
-import { Icon } from 'react-native-elements'
-import PropTypes from 'prop-types'
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import { StyleSheet, View } from 'react-native';
+
+import { Icon } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   container: {

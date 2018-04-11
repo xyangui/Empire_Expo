@@ -1,23 +1,18 @@
 /**
  * 我的课程里面的 CLASS 页面
  */
-import React, {Component} from "react";
-import {View} from 'react-native';
+import React, { Component } from 'react';
+import { View } from 'react-native';
+
 import {
   Container,
-  Header,
-  Title,
-  Content,
-  Button,
-  Icon,
   ListItem,
   Text,
-  Left,
-  Right,
-  Body,
   List
-} from "native-base";
-import styles from "./styles";
+} from 'native-base';
+
+import Header from '../HeaderGoback';
+import stylesContainer from '../styles.js';
 
 const datas = [
   {
@@ -34,7 +29,7 @@ const datas = [
   }
 ];
 
-class MyClass extends Component {
+export default class MyClass extends Component {
 
   // _getClassNameArray(classNames: Array<string>) {
   //
@@ -60,19 +55,9 @@ class MyClass extends Component {
     const {params} = this.props.navigation.state;
 
     return (
-      <Container style={styles.container}>
+      <Container style={stylesContainer.container}>
 
-        <Header>
-          <Left>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
-              <Icon name="arrow-back"/>
-            </Button>
-          </Left>
-          <Body>
-          <Title>{params.CoursesName}</Title>
-          </Body>
-          <Right/>
-        </Header>
+		<Header navig={this.props.navigation} title={params.CoursesName}/>
 
         <List dataArray={datas}
               renderRow={data =>
@@ -99,4 +84,3 @@ class MyClass extends Component {
   }
 }
 
-export default MyClass;

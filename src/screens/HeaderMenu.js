@@ -1,5 +1,8 @@
-
+/**
+ * 带 Menu 的 Header
+ */
 import React, {Component} from 'react';
+
 import {
   Header,
   Title,
@@ -8,9 +11,9 @@ import {
   Icon,
   Body,
   Right
-} from "native-base";
+} from 'native-base';
 
-export default class MyHeader extends Component {
+export default class HeaderMenu extends Component {
 
   render() {
     return (
@@ -18,13 +21,13 @@ export default class MyHeader extends Component {
         <Left>
           <Button
             transparent
-            onPress={() => this.props.navigate("DrawerOpen")}
+            onPress={() => this.props.navig("DrawerOpen")}
           >
             <Icon name="ios-menu"/>
           </Button>
         </Left>
         <Body>
-        <Title>Courses</Title>
+        <Title>{this.props.title}</Title>
         </Body>
         <Right/>
       </Header>

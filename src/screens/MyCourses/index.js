@@ -1,12 +1,11 @@
 /**
  * 我的课程页面
  */
-import React, {Component} from "react";
-import {Image} from "react-native";
+import React, { Component } from 'react';
+import { Image } from 'react-native';
+
 import {
   Container,
-  Header,
-  Title,
   Content,
   Button,
   Icon,
@@ -19,8 +18,11 @@ import {
   Thumbnail,
   List
 } from "native-base";
-import styles from "./styles";
-import stylesContainer from "../styles";
+
+import Header from '../HeaderMenu';
+
+import styles from './style';
+import stylesContainer from '../styles';
 
 const cardImage = require("../../../assets/mycourse_cover.png");
 
@@ -42,25 +44,12 @@ const datas = [
   }
 ];
 
-class MyCourses extends Component {
+export default class MyCourses extends Component {
   render() {
     return (
         <Container style={stylesContainer.container}>
-          <Header>
-            <Left>
-              <Button
-                  transparent
-                  onPress={() => this.props.navigation.navigate("DrawerOpen")}
-              >
-                <Icon name="menu"/>
-              </Button>
-            </Left>
-            <Body>
-            <Title>My Courses</Title>
-            </Body>
-            <Right/>
-          </Header>
 
+          <Header navig={this.props.navigation.navigate} title='My Courses'/>
 
           <Content padder>
             <List dataArray={datas}
@@ -126,5 +115,3 @@ class MyCourses extends Component {
     );
   }
 }
-
-export default MyCourses;
