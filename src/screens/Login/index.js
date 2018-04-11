@@ -15,6 +15,8 @@ import {
 import { Font } from 'expo';
 import { Input, Button } from 'react-native-elements'
 
+import myFetch from '../MyFetch';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
 
@@ -89,16 +91,60 @@ export default class Login extends Component {
       email,
       password,
     } = this.state;
-    this.setState({ isLoading: true });
-    // Simulate an API call
-    setTimeout(() => {
-      LayoutAnimation.easeInEaseOut();
-      this.setState({
-        isLoading: false,
-        isEmailValid: this.validateEmail(email) || this.emailInput.shake(),
-        isPasswordValid: password.length >= 8 || this.passwordInput.shake(),
-      });
-    }, 1500);
+
+
+    this.setState({
+      isEmailValid: false,
+      isPasswordValid: password.length >= 8,
+    });
+
+    var mail = this.state.isEmailValid;
+    var pass = this.state.isPasswordValid;
+
+    this.setState({
+      isEmailValid: this.validateEmail(email) || this.emailInput.shake(),
+      isPasswordValid: password.length >= 8 || this.passwordInput.shake(),
+    });
+
+     mail = this.state.isEmailValid;
+     pass = this.state.isPasswordValid;
+
+    // let params = {
+    //   user: 'ivan@empire.edu.au',
+    //   password: 'qazwsxedc'
+    // };
+    // myFetch('/login','POST', params)
+    //   .then( responseJson => {
+    //
+    //     if (responseJson.state === 'successful') {
+    //
+    //       // local增加
+    //       Alert.alert('successful3334');
+    //     } else {
+    //       Alert.alert('fail66777');
+    //     }
+    //
+    //   }).catch( err => {
+    //   //请求失败
+    // });
+
+
+    if(this.state.isEmailValid && this.state.isPasswordValid){
+
+      this.setState({ isLoading: true });
+
+      // Simulate an API call
+      setTimeout(() => {
+        LayoutAnimation.easeInEaseOut();
+        this.setState({
+          isLoading: false,
+          isEmailValid: this.validateEmail(email) || this.emailInput.shake(),
+          isPasswordValid: password.length >= 8 || this.passwordInput.shake(),
+        });
+      }, 150);
+    }
+
+
   }
 
   signUp() {
