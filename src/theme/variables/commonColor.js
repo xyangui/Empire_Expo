@@ -130,8 +130,8 @@ export default {
   tabActiveBgColor: platform === "ios" ? "#cde1f9" : "#3F51B5",
 
   // Header
-  toolbarBtnColor: platform === "ios" ? "#007aff" : "#fff",
-  toolbarDefaultBg: platform === "ios" ? "#F8F8F8" : "#3F51B5",
+  toolbarBtnColor: platform === "ios" ? "#fff" : "#fff", //ios 和
+  toolbarDefaultBg: platform === "ios" ? "#3F51B5" : "#3F51B5", //ios 和 android 头部标题颜色一致
   toolbarHeight: platform === "ios" ? (isIphoneX ? 88 : 64) : 74, //原来 56 改成 74
   toolbarSearchIconSize: platform === "ios" ? 20 : 23,
   toolbarInputColor: platform === "ios" ? "#CECDD2" : "#fff",
@@ -233,7 +233,7 @@ export default {
   titleFontSize: platform === "ios" ? 17 : 19,
   subTitleFontSize: platform === "ios" ? 12 : 14,
   subtitleColor: platform === "ios" ? "#000" : "#fff",
-  titleFontColor: platform === "ios" ? "#000" : "#fff",
+  titleFontColor: platform === "ios" ? "#fff" : "#fff", //ios 和 android 页面标题统一改为白色
 
   // Other
   borderRadiusBase: platform === "ios" ? 5 : 2,
