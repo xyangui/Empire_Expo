@@ -87,6 +87,16 @@ export default class Login extends Component {
   }
 
   login() {
+
+
+    this.setState({
+      isEmailValid: false
+    });
+
+    var mail2 = this.state.isEmailValid;
+
+
+
     const {
       email,
       password,
