@@ -130,7 +130,7 @@ export default {
   tabActiveBgColor: platform === "ios" ? "#cde1f9" : "#3F51B5",
 
   // Header
-  toolbarBtnColor: platform === "ios" ? "#fff" : "#fff", //ios 和
+  toolbarBtnColor: platform === "ios" ? "#fff" : "#fff", //ios 和 android 抽屉工具栏颜色改成一致
   toolbarDefaultBg: platform === "ios" ? "#3F51B5" : "#3F51B5", //ios 和 android 头部标题颜色一致
   toolbarHeight: platform === "ios" ? (isIphoneX ? 88 : 64) : 74, //原来 56 改成 74
   toolbarSearchIconSize: platform === "ios" ? 20 : 23,
