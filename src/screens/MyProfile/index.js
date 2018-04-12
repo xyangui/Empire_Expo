@@ -90,7 +90,7 @@ export default class MyProfile extends Component {
                         containerStyle={{backgroundColor: '#FAD291'}}
                         icon={{
                           type: 'font-awesome',
-                          name: 'money',
+                          name: 'credit-card',
                         }}
                     />
                   }

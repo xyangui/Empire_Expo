@@ -2,7 +2,7 @@
  * 我的课程页面
  */
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { Image, Alert } from 'react-native';
 
 import {
   Container,
@@ -19,6 +19,7 @@ import {
   List
 } from "native-base";
 
+import { SecureStore } from 'expo';
 import Header from '../HeaderMenu';
 
 import styles from './style';
@@ -45,6 +46,33 @@ const datas = [
 ];
 
 export default class MyCourses extends Component {
+
+  // _getValue = async key => {
+	// try {
+	//   const fetchedValue = await SecureStore.getItemAsync(key, {});
+	//   // Alert.alert('Success!', 'Fetched value: ' + fetchedValue, [
+	// 	// { text: 'OK', onPress: () => {} },
+	//   // ]);
+  //
+  //     let fff = fetchedValue;
+	//   let ff = fetchedValue;
+  //
+  //     return fetchedValue;
+	// } catch (e) {
+	//   Alert.alert('Error!', e.message, [{ text: 'OK', onPress: () => {} }]);
+	// }
+  // };
+  //
+  // constructor(props) {
+	// super(props);
+  //
+	// let email11 = this._getValue('email');
+	// let password11 = this._getValue('password');
+  //
+	// let ff = 22;
+  //
+  // }
+
   render() {
     return (
         <Container style={stylesContainer.container}>
@@ -90,7 +118,7 @@ export default class MyCourses extends Component {
                               <Text>Unit</Text>
                             </Button>
                           </Left>
-                          <Body>
+                          <Left>
                           <Button
                               transparent
                               onPress={() => this.props.navigation.navigate("MyClass", {CoursesName: data.title})}
@@ -98,7 +126,7 @@ export default class MyCourses extends Component {
                             <Icon active name="ios-school"/>
                             <Text>Class</Text>
                           </Button>
-                          </Body>
+                          </Left>
                           <Right>
                             {/*<Text>11h ago</Text>*/}
                           </Right>
