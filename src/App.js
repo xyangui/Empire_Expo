@@ -28,10 +28,15 @@ const Drawer = DrawerNavigator(
   },
   {
     initialRouteName: "Courses",
+	initialRouteParams: { isLogin_initRoute: true },
     contentOptions: {
       activeTintColor: "#e91e63"
     },
-    contentComponent: props => <SideBar {...props} />
+    contentComponent: props => <SideBar {...props} getIsLogin={() => {return true;}}/>
+
+	// 初始路由参数： initialRouteParams: { isLogin_initRoute: true }, 只能在初始页面 Courses 内获取到
+	// 而 Courses 是公开页面，无需登陆状态
+	// 需要把初始登陆状态 getIsLogin={() => {return false;}} 传递给 SideBar，由 SideBar 传递给其他页面
   }
 );
 
@@ -46,21 +51,41 @@ const AppNavigator = StackNavigator(
   },
   {
     initialRouteName: "Drawer",
+	initialRouteParams: { isLogin_initRoute: true },
     headerMode: "none"
   }
 );
 
+const Drawer_Login = DrawerNavigator(
+	{
+	  Courses: { screen: Courses },
+	  MyCourses: { screen: MyCourses },
+	  Login: { screen: Login },
+
+	  MyProfile: { screen: MyProfile }
+	},
+	{
+	  initialRouteName: "Courses",
+	  initialRouteParams: { isLogin_initRoute: false },
+	  contentOptions: {
+		activeTintColor: "#e91e63"
+	  },
+	  contentComponent: props => <SideBar {...props} getIsLogin={() => {return false;}} />
+	}
+);
+
 const AppNavigator_Login = StackNavigator(
 	{
-	  Drawer: { screen: Drawer },
+	  Drawer_Login: { screen: Drawer_Login },
 
 	  Unit: { screen: Unit },
-	  MyClass: {screen: MyClass },
+	  MyClass: { screen: MyClass },
 
 	  Login: { screen: Login },
 	},
 	{
 	  initialRouteName: "Login",
+	  initialRouteParams: { isLogin_initRoute: false },
 	  headerMode: "none"
 	}
 );
@@ -76,7 +101,7 @@ export default class App extends Component {
 	super(props);
 
 	this.state = {
-	  isLogin: false,
+	  isLogin: true,  //默认已经登陆状态
 	};
   }
 
@@ -107,7 +132,6 @@ export default class App extends Component {
     //   }
     // });
 
-
     const emailValue = await this._getValue('email');
 	const passwordValue = await this._getValue('password');
 
@@ -119,7 +143,7 @@ export default class App extends Component {
 	myFetch('/login', 'POST', params)
 	.then(responseJson => {
 
-	  if (responseJson.state === 'successful') {
+	  if (responseJson.state === 'success') {
 
 		this.setState({isLogin: true});
 
@@ -134,13 +158,16 @@ export default class App extends Component {
 	});
   }
 
+  //初始化默认已经登陆状态 isLogin: true, ，让用户也能访问 Courses 等公开页面
+  //访问网络验证用户名密码，如果成功，状态不变，如果失败，跳到登陆页面，
+  //如果在登陆页面，点击 Back 也能访问公开页面
   render() {
 	return (
 		<Root>
 
 		  {this.state.isLogin ?
 
-			  <AppNavigator />
+			   <AppNavigator />
 			  :
 			  <AppNavigator_Login />
 		  }

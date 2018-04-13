@@ -64,6 +64,11 @@ export default class SideBar extends Component {
       shadowOffsetWidth: 1,
       shadowRadius: 4
     };
+
+    //接收参数
+    this.state = {
+	  isLogin_sidebar: this.props.getIsLogin()
+	}
   }
 
   render() {
@@ -87,8 +92,11 @@ export default class SideBar extends Component {
               <ListItem
                 button
                 noBorder
-                onPress={() => this.props.navigation.navigate(data.route)}
+                onPress={() => this.props.navigation.navigate(data.route, {isLogin: this.state.isLogin_sidebar})}
               >
+
+				{/*{isLogin: this.state.isLogin_sidebar} 传递参数*/}
+
                 <Left>
                   <Icon
                     active

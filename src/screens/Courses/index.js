@@ -1,4 +1,6 @@
-
+/**
+ * Courses 公开页面，无论是否登陆，都可以访问
+ */
 import React, {Component} from 'react';
 
 import {
