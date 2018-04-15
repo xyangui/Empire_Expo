@@ -8,7 +8,10 @@ import {
   Container,
   ListItem,
   Text,
-  List
+  List,
+  Icon,
+  Body,
+  Right
 } from 'native-base';
 
 import Header from '../HeaderGoback';
@@ -71,7 +74,12 @@ export default class MyClass extends Component {
                         renderRow={datatext =>
 
                           <ListItem>
+                            <Body>
                             <Text>{datatext}</Text>
+                            </Body>
+                            <Right>
+                              <Icon name="arrow-forward" />
+                            </Right>
                           </ListItem>
                         }
                   />

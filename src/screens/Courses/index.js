@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 
 import {
   Container,
-  Button,
+  Icon,
   List,
   ListItem,
   Text,
@@ -69,10 +69,14 @@ export default class Courses extends Component {
                     {data.note}
                   </Text>
                   </Body>
+                  {/*<Right>*/}
+                    {/*<Button transparent>*/}
+                      {/*<Text>View</Text>*/}
+                    {/*</Button>*/}
+                  {/*</Right>*/}
+
                   <Right>
-                    <Button transparent>
-                      <Text>View</Text>
-                    </Button>
+                    <Icon name="arrow-forward" />
                   </Right>
                 </ListItem>}
             />
