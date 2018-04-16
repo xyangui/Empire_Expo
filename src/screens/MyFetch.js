@@ -1,6 +1,8 @@
 /**
  * 封装网络请求 fetch ，还可以加上超时处理，等待进度圈，参考地址：
  * https://juejin.im/entry/590fe17b1b69e6006854987b
+ *
+ * https://blog.csdn.net/SuperBigLw/article/details/55253045
  */
 import { Alert } from 'react-native';
 
