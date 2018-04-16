@@ -15,7 +15,7 @@ import {
 import { Font, SecureStore } from 'expo';
 import { Input, Button } from 'react-native-elements'
 
-import myFetch from '../MyFetch';
+import { fetchNoProgress } from '../MyFetch';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
@@ -128,13 +128,13 @@ export default class Login extends Component {
 		password: password
 	  };
 
-	  myFetch('/login', 'POST', params)
+      fetchNoProgress('/loginr', 'POST', params, false)
 	  .then(responseJson => {
 
 		LayoutAnimation.easeInEaseOut();
 		this.setState({
 		  isLoading: false
-		});
+		});//去掉旋转进度条
 
 		if (responseJson.state === 'successful') {
 
@@ -152,6 +152,10 @@ export default class Login extends Component {
 		}
 
 	  }).catch(error => {
+
+        this.setState({
+          isLoading: false
+        });//去掉旋转进度条
 
 	    Alert.alert('Login fail !');
 	  });

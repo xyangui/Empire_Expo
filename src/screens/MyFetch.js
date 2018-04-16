@@ -2,6 +2,8 @@
  * 封装网络请求 fetch ，还可以加上超时处理，等待进度圈，参考地址：
  * https://juejin.im/entry/590fe17b1b69e6006854987b
  */
+import { Alert } from 'react-native';
+
 const common_url = 'http://empirecollege.net/Education/public/api';  //服务器地址
 let token = '';
 
@@ -12,7 +14,7 @@ let token = '';
  * @return 返回Promise
  */
 
-function fetchRequest(url, method, params = ''){
+export function fetchNoProgress(url, method, params = '', isErrorAlert = true){
 
   let header = {
     "Content-Type": "application/json;charset=UTF-8"
@@ -35,6 +37,9 @@ function fetchRequest(url, method, params = ''){
         })
         .catch( (error) => {
 
+          if(isErrorAlert) {
+            Alert.alert('Request fail !');
+          }
           reject(error);
         });
     });
@@ -55,10 +60,12 @@ function fetchRequest(url, method, params = ''){
         })
         .catch( (error) => {
 
+          if(isErrorAlert) {
+            Alert.alert('Request fail !');
+          }
           reject(error);
         });
     });
-
   }
 }
-export default fetchRequest;
+
