@@ -1,5 +1,10 @@
-
-import React, {Component} from "react";
+/**
+ *  全局变量
+ *  global.gLoginEmail 用户登陆 email ，可能为空 ''
+ *  global.gIsLogin    用户是否已经登陆，默认 false，
+ *                     初始化时，本地存储与网络请求一致：true，登陆页面登陆成功，true
+ */
+import React, { Component } from "react";
 import { Root } from "native-base";
 import { StackNavigator, DrawerNavigator } from "react-navigation";
 
@@ -14,29 +19,24 @@ import Login from "./screens/Login/index";
 import MyProfile from "./screens/MyProfile/index";
 import getTheme from "./theme/components";
 import variables from "./theme/variables/commonColor";
-import {Font, SecureStore} from "expo";
-import {Alert, LayoutAnimation} from "react-native";
-import myFetch from "./screens/MyFetch";
+import { Font, SecureStore } from "expo";
+import { Alert, LayoutAnimation } from "react-native";
+import { fetchNoProgress } from "./screens/MyFetch";
 
 const Drawer = DrawerNavigator(
   {
-    Courses: { screen: Courses },
+    Courses: { screen: Courses },   // Courses 是公开页面，无需登陆状态
     MyCourses: { screen: MyCourses },
-    Login: { screen: Login },
 
-    MyProfile: { screen: MyProfile }
+    MyProfile: { screen: MyProfile },
+    Login: { screen: Login }
   },
   {
     initialRouteName: "Courses",
-	initialRouteParams: { isLogin_initRoute: true },
     contentOptions: {
       activeTintColor: "#e91e63"
     },
-    contentComponent: props => <SideBar {...props} getIsLogin={() => {return true;}}/>
-
-	// 初始路由参数： initialRouteParams: { isLogin_initRoute: true }, 只能在初始页面 Courses 内获取到
-	// 而 Courses 是公开页面，无需登陆状态
-	// 需要把初始登陆状态 getIsLogin={() => {return false;}} 传递给 SideBar，由 SideBar 传递给其他页面
+    contentComponent: props => <SideBar {...props} />
   }
 );
 
@@ -51,43 +51,8 @@ const AppNavigator = StackNavigator(
   },
   {
     initialRouteName: "Drawer",
-	initialRouteParams: { isLogin_initRoute: true },
     headerMode: "none"
   }
-);
-
-const Drawer_Login = DrawerNavigator(
-	{
-	  Courses: { screen: Courses },
-	  MyCourses: { screen: MyCourses },
-	  Login: { screen: Login },
-
-	  MyProfile: { screen: MyProfile }
-	},
-	{
-	  initialRouteName: "Courses",
-	  initialRouteParams: { isLogin_initRoute: false },
-	  contentOptions: {
-		activeTintColor: "#e91e63"
-	  },
-	  contentComponent: props => <SideBar {...props} getIsLogin={() => {return false;}} />
-	}
-);
-
-const AppNavigator_Login = StackNavigator(
-	{
-	  Drawer_Login: { screen: Drawer_Login },
-
-	  Unit: { screen: Unit },
-	  MyClass: { screen: MyClass },
-
-	  Login: { screen: Login },
-	},
-	{
-	  initialRouteName: "Login",
-	  initialRouteParams: { isLogin_initRoute: false },
-	  headerMode: "none"
-	}
 );
 
 // export default () =>
@@ -100,9 +65,8 @@ export default class App extends Component {
   constructor(props) {
 	super(props);
 
-	this.state = {
-	  isLogin: true,  //默认已经登陆状态
-	};
+    global.gLoginEmail = '';
+    global.gIsLogin = false;
   }
 
   _getValue = async key => {
@@ -140,21 +104,14 @@ export default class App extends Component {
 	  password: passwordValue
 	};
 
-	myFetch('/login', 'POST', params)
+    fetchNoProgress('/login', 'POST', params)
 	.then(responseJson => {
 
 	  if (responseJson.state === 'success') {
 
-		this.setState({isLogin: true});
-
-	  } else {
-
-		this.setState({isLogin: false});
+        global.gLoginEmail = emailValue;
+        global.gIsLogin = true;
 	  }
-
-	}).catch(error => {
-
-	  this.setState({isLogin: false});
 	});
   }
 
@@ -165,14 +122,8 @@ export default class App extends Component {
 	return (
 		<Root>
 
-		  {this.state.isLogin ?
+		  <AppNavigator />
 
-			   <AppNavigator />
-			  :
-			  <AppNavigator_Login />
-		  }
-
-          {/*<AppNavigator />*/}
         </Root>
 	);
   }

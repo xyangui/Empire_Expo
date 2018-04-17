@@ -107,7 +107,7 @@ export default class Login extends Component {
 	//   password,
 	// } = this.state;
 
-	let email = 'ivan@empire.edu.aue';
+	let email = 'ivan@empire.edu.au';
 	let password = 'qazwsxedc';
 
 	let isEmailValid = this.validateEmail(email);
@@ -128,7 +128,7 @@ export default class Login extends Component {
 		password: password
 	  };
 
-      fetchNoProgress('/loginr', 'POST', params, false)
+      fetchNoProgress('/login', 'POST', params, false)
 	  .then(responseJson => {
 
 		LayoutAnimation.easeInEaseOut();
@@ -136,7 +136,7 @@ export default class Login extends Component {
 		  isLoading: false
 		});//去掉旋转进度条
 
-		if (responseJson.state === 'successful') {
+		if (responseJson.state === 'success') {
 
 		  //存储用户名密码
 		  this._setValue('email', email);

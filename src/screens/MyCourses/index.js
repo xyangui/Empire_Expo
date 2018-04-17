@@ -2,7 +2,7 @@
  * 我的课程页面，只有登陆后可以访问
  */
 import React, {Component} from 'react';
-import {Image, Alert} from 'react-native';
+import {Image, Alert, LayoutAnimation} from 'react-native';
 
 import {
   Container,
@@ -19,13 +19,15 @@ import {
   List
 } from "native-base";
 
-import {SecureStore} from 'expo';
+import {Font, SecureStore} from 'expo';
 import Header from '../HeaderMenu';
 
 import styles from './style';
 import stylesContainer from '../styles';
+import {fetchNoProgress} from "../MyFetch";
 
 const cardImage = require("../../../assets/mycourse_cover.png");
+const logo = require("../../../assets/logo_cclt.jpg");
 
 const datas = [
   {
@@ -81,8 +83,54 @@ export default class MyCourses extends Component {
 
 	this.state = {
 	  isLogSidebar: params.isLogin
-	}
+	};
+
+    let email33 = gLoginEmail;
+
+    global.gLoginEmail = 'aaa88990';
+
+	let email334 = gLoginEmail;
+    let email34 = gLoginEmail;
   }
+
+  // async componentDidMount() {
+  //全局变量
+  //   let params = {
+  //   	email: gLoginEmail
+  //   };
+  //
+  //   fetchNoProgress('/studentCourse', 'POST', params)
+  //     .then(responseJson => {
+  //
+  //       LayoutAnimation.easeInEaseOut();
+  //       this.setState({
+  //         isLoading: false
+  //       });//去掉旋转进度条
+  //
+  //       if (responseJson.state === 'success') {
+  //
+  //         //存储用户名密码
+  //         this._setValue('email', email);
+  //         this._setValue('password', password);
+  //         //登陆成功跳页
+  //         //Alert.alert('successful3334');
+  //         this.props.navigation.navigate('Courses');
+  //
+  //       } else {
+  //
+  //         //登陆失败弹出对话框
+  //         Alert.alert('Wrong email or password !');
+  //       }
+  //
+  //     }).catch(error => {
+  //
+  //     this.setState({
+  //       isLoading: false
+  //     });//去掉旋转进度条
+  //
+  //     Alert.alert('Login fail !');
+  //   });
+  // }
 
   render() {
 	return (
@@ -103,7 +151,7 @@ export default class MyCourses extends Component {
 						  <Card style={styles.mb}>
 							<CardItem>
 							  <Left>
-								<Thumbnail source={data.img}/>
+								<Thumbnail source={logo}/>
 								<Body>
 								<Text>{data.title}</Text>
 								<Text note>{data.text}</Text>
