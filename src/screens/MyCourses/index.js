@@ -153,7 +153,7 @@ export default class MyCourses extends Component {
                       <Left>
                         <Button
                           transparent
-                          onPress={() => this.props.navigation.navigate("Unit", {CoursesName: data.title})}
+                          onPress={() => this.props.navigation.navigate("Unit", {CoursesName: course.course_code})}
                         >
                           {/*{CoursesName: data.title} 为需要传递的参数，CoursesName为key*/}
 
@@ -164,10 +164,10 @@ export default class MyCourses extends Component {
                       <Left>
                         <Button
                           transparent
-                          onPress={() => this.props.navigation.navigate("MyClass", {CoursesName: data.title})}
+                          onPress={() => this.props.navigation.navigate("MyClass", {CoursesName: course.course_code})}
                         >
                           <Icon active name="ios-school"/>
-                          <Text>Class</Text>
+                          <Text>Lesson</Text>
                         </Button>
                       </Left>
                       <Right>
