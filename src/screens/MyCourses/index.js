@@ -19,7 +19,7 @@ import {
   List
 } from "native-base";
 
-import { Font } from 'expo';
+import {Font} from 'expo';
 import Header from '../HeaderMenu';
 
 import styles from './style';
@@ -33,143 +33,159 @@ const logo = require("../../../assets/logo_cclt.jpg");
 
 const datas = [
   {
-	img: require("../../../assets/logo_naati.png"),
-	title: "NATTI",
-	text: "Empire"
+    img: require("../../../assets/logo_naati.png"),
+    title: "NATTI",
+    text: "Empire"
   },
   {
-	img: require("../../../assets/logo_cclt.jpg"),
-	title: "CCLT",
-	text: "Empire"
+    img: require("../../../assets/logo_cclt.jpg"),
+    title: "CCLT",
+    text: "Empire"
   },
   {
-	img: require("../../../assets/logo_pte.jpg"),
-	title: "PTE",
-	text: "Empire"
+    img: require("../../../assets/logo_pte.jpg"),
+    title: "PTE",
+    text: "Empire"
   }
 ];
 
 export default class MyCourses extends Component {
 
   constructor(props) {
-	super(props);
+    super(props);
 
-	//const {params} = this.props.navigation.state;
+    //const {params} = this.props.navigation.state;
 
-	this.state = {
-	  isLogin: gIsLogin,
-	  isGetData: false,
-	  datas: null,
-	};
+    this.state = {
+      isLogin: gIsLogin,
+      isGetData: false,
+      courses: null,
+    };
   }
 
   async componentDidMount() {
 
-
-    let dd = gLoginEmail;
-    let dd3 = gIsLogin;
-
-
     let params = {
-    	email: gLoginEmail
+      email: gLoginEmail
     };
 
     fetchNoProgress('/studentCourse', 'POST', params)
       .then(responseJson => {
 
-        let surname = responseJson.surname;
-        let surname2 = responseJson.first_name;
-
-        let courses = responseJson.course-info.courses;
-      	let courses = responseJson.course-info.courses;
-      	let courseinfo = responseJson.course-info;
+        // {
+        //   "email": "ivan@empire.edu.au",
+        //   "firstName": "ivan",
+        //   "surname": "ivan",
+        //   "campus": "melbourne",
+        //   "courseInfo": {
+        //   "courses": [
+        //     {
+        //       "course_code": "EAP001",
+        //       "cricos_code": "095080J",
+        //       "course_name": "English for Academic Purposes (EAP) Intermediate to Advanced",
+        //       "course_description": ""
+        //     },
+        //     {
+        //       "course_code": "EAP001",
+        //       "cricos_code": "095080J",
+        //       "course_name": "English for Academic Purposes (EAP) Intermediate to Advanced",
+        //       "course_description": ""
+        //     }
+        //   ],
+        // }
+        // }
 
         this.setState({
           isGetData: true,
-          courses: responseJson.course-info.courses,
+          courses: responseJson.courseInfo.courses,
         });
 
       });
   }
 
   render() {
-	return (
 
-		!this.state.isLogin ?
-			this.props.navigation.navigate("Login")
+    let {courses} = this.state;
 
-			:
+    return (
 
-			<Container style={stylesContainer.container}>
+      !this.state.isLogin ?
+        this.props.navigation.navigate("Login")
 
-			  <Header navig={this.props.navigation.navigate} title='My Courses'/>
+        :
 
-			  <Content padder>
+        <Container style={stylesContainer.container}>
 
+          <Header navig={this.props.navigation.navigate} title='My Courses'/>
 
+          <Content padder>
 
+            {this.state.isGetData ?
 
-				<List dataArray={datas}
-					  renderRow={data =>
+              <List
+                dataArray={courses}
+                renderRow={course =>
 
-						  <Card style={styles.mb}>
-							<CardItem>
-							  <Left>
-								<Thumbnail source={logo}/>
-								<Body>
-								<Text>{data.title}</Text>
-								<Text note>{data.text}</Text>
-								</Body>
-							  </Left>
-							</CardItem>
+                  <Card style={styles.mb}>
+                    <CardItem>
+                      <Left>
+                        <Thumbnail source={logo}/>
+                        <Body>
+                        <Text>{course.course_code}</Text>
+                        <Text note>{course.course_name}</Text>
+                        </Body>
+                      </Left>
+                    </CardItem>
 
-							<CardItem cardBody>
-							  <Image
-								  style={{
-									resizeMode: "cover",
-									width: null,
-									height: 200,
-									flex: 1
-								  }}
-								  source={cardImage}
-							  />
-							</CardItem>
+                    <CardItem cardBody>
+                      <Image
+                        style={{
+                          resizeMode: "cover",
+                          width: null,
+                          height: 200,
+                          flex: 1
+                        }}
+                        source={cardImage}
+                      />
+                    </CardItem>
 
-							<CardItem style={{paddingVertical: 0}}>
-							  <Left>
-								<Button
-									transparent
-									onPress={() => this.props.navigation.navigate("Unit", {CoursesName: data.title})}
-								>
-								  {/*{CoursesName: data.title} 为需要传递的参数，CoursesName为key*/}
+                    <CardItem style={{paddingVertical: 0}}>
+                      <Left>
+                        <Button
+                          transparent
+                          onPress={() => this.props.navigation.navigate("Unit", {CoursesName: data.title})}
+                        >
+                          {/*{CoursesName: data.title} 为需要传递的参数，CoursesName为key*/}
 
-								  <Icon active name="ios-photos"/>
-								  <Text>Unit</Text>
-								</Button>
-							  </Left>
-							  <Left>
-								<Button
-									transparent
-									onPress={() => this.props.navigation.navigate("MyClass", {CoursesName: data.title})}
-								>
-								  <Icon active name="ios-school"/>
-								  <Text>Class</Text>
-								</Button>
-							  </Left>
-							  <Right>
-								{/*<Text>11h ago</Text>*/}
-							  </Right>
-							</CardItem>
-						  </Card>
-					  }
-				/>
-			  </Content>
+                          <Icon active name="ios-photos"/>
+                          <Text>Unit</Text>
+                        </Button>
+                      </Left>
+                      <Left>
+                        <Button
+                          transparent
+                          onPress={() => this.props.navigation.navigate("MyClass", {CoursesName: data.title})}
+                        >
+                          <Icon active name="ios-school"/>
+                          <Text>Class</Text>
+                        </Button>
+                      </Left>
+                      <Right>
+                        {/*<Text>11h ago</Text>*/}
+                      </Right>
+                    </CardItem>
+                  </Card>
+                }
+              />
 
+              :
+              <Loading/>
+            }
 
-			  <Text/>
-			  <Text/>
-			</Container>
+          </Content>
 
-	);
+        </Container>
+
+    );
   }
 }
