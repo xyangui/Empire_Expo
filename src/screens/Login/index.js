@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   StyleSheet,
@@ -12,10 +12,11 @@ import {
   Alert
 } from 'react-native';
 
-import { Font, SecureStore } from 'expo';
+import { Font } from 'expo';
 import { Input, Button } from 'react-native-elements'
 
 import { fetchNoProgress } from '../MyFetch';
+import { saveKeyValue } from '../SecureStore';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
@@ -86,27 +87,12 @@ export default class Login extends Component {
 	return re.test(email);
   }
 
-  // 存储用户名密码
-  _setValue = async (key, value) => {
-	try {
-	  // console.log('securestore: ' + SecureStore);
-	  await SecureStore.setItemAsync(key, value, {});
+  async login() {
 
-	  // Alert.alert('Success!', 'Value: ' + value + ', stored successfully for key: ' + key, [
-		// { text: 'OK', onPress: () => {} },
-	  // ]);
+  	// 输入value
+	// const { email, password } = this.state;
 
-	} catch (e) {
-	  Alert.alert('Error!', e.message, [{ text: 'OK', onPress: () => {} }]);
-	}
-  };
-
-  login() {
-	// const {
-	//   email,
-	//   password,
-	// } = this.state;
-
+    // 测试用
 	let email = 'ivan@empire.edu.au';
 	let password = 'qazwsxedc';
 
@@ -121,8 +107,6 @@ export default class Login extends Component {
 
 	  this.setState({isLoading: true});
 
-	  // user: 'ivan@empire.edu.au',
-	  // password: 'qazwsxedc'
 	  let params = {
 		user: email,
 		password: password
@@ -139,20 +123,22 @@ export default class Login extends Component {
 		if (responseJson.state === 'success') {
 
 		  //存储用户名密码
-		  this._setValue('email', email);
-		  this._setValue('password', password);
+		  saveKeyValue('email', email);
+		  saveKeyValue('password', password);
+
+		  //保存到全局变量
+		  global.gLoginEmail = email;
+          global.gIsLogin = true;
+
 		  //登陆成功跳页
-		  //Alert.alert('successful3334');
 		  this.props.navigation.navigate('Courses');
 
 		} else {
-
-		  //登陆失败弹出对话框
 		  Alert.alert('Wrong email or password !');
 		}
-
 	  }).catch(error => {
 
+        LayoutAnimation.easeInEaseOut();
         this.setState({
           isLoading: false
         });//去掉旋转进度条

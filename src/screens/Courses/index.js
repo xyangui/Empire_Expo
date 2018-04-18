@@ -2,6 +2,7 @@
  * Courses 公开页面，无论是否登陆，都可以访问
  */
 import React, {Component} from 'react';
+import {Alert, LayoutAnimation, StyleSheet, View} from 'react-native';
 
 import {
   Container,
@@ -16,31 +17,62 @@ import {
 } from 'native-base';
 
 import {Grid, Row} from 'react-native-easy-grid';
-import MySwiper from './swiper/index';
 
 import Header from '../HeaderMenu';
-import stylesContainer from '../styles.js';
+import MySwiper from './swiper/index';
 
-const datas = [
-  {
-    img: require('../../../assets/logo_naati.png'),
-    text: "NATTI",
-    note: "This is NATTI!"
-  },
-  {
-    img: require('../../../assets/logo_cclt.jpg'),
-    text: "CCLT",
-    note: "This is CCLT!"
-  },
-  {
-    img: require('../../../assets/logo_pte.jpg'),
-    text: "PTE",
-    note: "This is PTE!"
-  }
-];
+import stylesContainer from '../styles.js';
+import {fetchNoProgress} from '../MyFetch';
+import Loading from '../Loading';
+
+// const datas = [
+//   {
+// 	img: require('../../../assets/logo_naati.png'),
+// 	text: "NATTI",
+// 	note: "This is NATTI!"
+//   },
+//   {
+// 	img: require('../../../assets/logo_cclt.jpg'),
+// 	text: "CCLT",
+// 	note: "This is CCLT!"
+//   },
+//   {
+// 	img: require('../../../assets/logo_pte.jpg'),
+// 	text: "PTE",
+// 	note: "This is PTE!"
+//   }
+// ];
+
+const logo = require('../../../assets/logo_cclt.jpg');
 
 export default class Courses extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isGetData: false,
+      courses: null,
+    };
+  }
+
+  async componentDidMount() {
+
+    fetchNoProgress('/allCourses', 'GET')
+      .then(responseJson => {
+
+        this.setState({
+          isGetData: true,
+          courses: responseJson.data,
+        });
+
+      });
+  }
+
   render() {
+
+    let {courses} = this.state;
+
     return (
       <Container style={stylesContainer.container}>
 
@@ -54,32 +86,34 @@ export default class Courses extends Component {
           </Row>
 
           <Row size={4}>
-            <List
-              dataArray={datas}
-              renderRow={data =>
-                <ListItem thumbnail>
-                  <Left>
-                    <Thumbnail square size={55} source={data.img}/>
-                  </Left>
-                  <Body>
-                  <Text>
-                    {data.text}
-                  </Text>
-                  <Text numberOfLines={1} note>
-                    {data.note}
-                  </Text>
-                  </Body>
-                  {/*<Right>*/}
-                    {/*<Button transparent>*/}
-                      {/*<Text>View</Text>*/}
-                    {/*</Button>*/}
-                  {/*</Right>*/}
 
-                  <Right>
-                    <Icon name="arrow-forward" />
-                  </Right>
-                </ListItem>}
-            />
+            {this.state.isGetData ?
+
+              <List
+                dataArray={courses}
+                renderRow={course =>
+                  <ListItem thumbnail>
+                    <Left>
+                      <Thumbnail square size={55} source={logo}/>
+                    </Left>
+                    <Body>
+                    <Text>
+                      {course.code}
+                    </Text>
+                    <Text numberOfLines={1} note>
+                      {course.name}
+                    </Text>
+                    </Body>
+
+                    <Right>
+                      <Icon name="arrow-forward"/>
+                    </Right>
+                  </ListItem>}
+              />
+              :
+              <Loading/>
+            }
+
           </Row>
 
         </Grid>
@@ -88,3 +122,17 @@ export default class Courses extends Component {
     );
   }
 }
+
+// <View style={styles.bgImage}>
+// <Text>Loading...</Text>
+// </View>
+
+// const styles = StyleSheet.create({
+//   bgImage: {
+// 	flex: 1,
+// 	top: 0,
+// 	left: 0,
+// 	justifyContent: 'center',
+// 	alignItems: 'center',
+//   },
+// });

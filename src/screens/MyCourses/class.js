@@ -17,6 +17,8 @@ import {
 import Header from '../HeaderGoback';
 import stylesContainer from '../styles.js';
 
+import Loading from '../Loading';
+
 const datas = [
   {
     title: "Uname1",
@@ -33,25 +35,6 @@ const datas = [
 ];
 
 export default class MyClass extends Component {
-
-  // _getClassNameArray(classNames: Array<string>) {
-  //
-  //   var listItemArray = [];
-  //
-  //   for (let text of classNames) {
-  //
-  //     let str = text;
-  //     let str2 = text;
-  //
-  //     listItemArray.push(
-  //         <ListItem>
-  //           <Text>{text}</Text>
-  //         </ListItem>
-  //     );
-  //   }
-  //
-  //   return listItemArray;
-  // }
 
   render() {
 

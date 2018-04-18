@@ -1,12 +1,17 @@
 /**
  *  全局变量
- *  global.gLoginEmail 用户登陆 email ，可能为空 ''
- *  global.gIsLogin    用户是否已经登陆，默认 false，
+ *  global.gLoginEmail 用户登陆 email, 初始化为空 ''
+ *  global.gIsLogin    用户是否已经登陆，初始化 false，
  *                     初始化时，本地存储与网络请求一致：true，登陆页面登陆成功，true
  */
 import React, { Component } from "react";
 import { Root } from "native-base";
 import { StackNavigator, DrawerNavigator } from "react-navigation";
+
+import getTheme from "./theme/components";
+import variables from "./theme/variables/commonColor";
+import { Font } from "expo";
+import { Alert, LayoutAnimation } from "react-native";
 
 import SideBar from "./screens/SideBar";
 import Courses from "./screens/Courses";
@@ -15,13 +20,11 @@ import MyCourses from "./screens/MyCourses";
 import Unit from "./screens/MyCourses/unit";
 import MyClass from "./screens/MyCourses/class";
 
-import Login from "./screens/Login/index";
 import MyProfile from "./screens/MyProfile/index";
-import getTheme from "./theme/components";
-import variables from "./theme/variables/commonColor";
-import { Font, SecureStore } from "expo";
-import { Alert, LayoutAnimation } from "react-native";
+import Login from "./screens/Login/index";
+
 import { fetchNoProgress } from "./screens/MyFetch";
+import { getValueByKey } from './screens/SecureStore';
 
 const Drawer = DrawerNavigator(
   {
@@ -65,24 +68,11 @@ export default class App extends Component {
   constructor(props) {
 	super(props);
 
-    global.gLoginEmail = '';
+    global.gLoginEmail = ''; //全局变量初始化
     global.gIsLogin = false;
   }
 
-  _getValue = async key => {
-	try {
-	  const fetchedValue = await SecureStore.getItemAsync(key, {});
-	  // Alert.alert('Success!', 'Fetched value: ' + fetchedValue, [
-	  // { text: 'OK', onPress: () => {} },
-	  // ]);
-
-	  return fetchedValue;
-	} catch (e) {
-	  Alert.alert('Error!', e.message, [{ text: 'OK', onPress: () => {} }]);
-	}
-  };
-
-  async componentWillMount() {
+  async componentDidMount() {
 
     // this._getValue('email').then( (value) => {
 	//
@@ -96,8 +86,8 @@ export default class App extends Component {
     //   }
     // });
 
-    const emailValue = await this._getValue('email');
-	const passwordValue = await this._getValue('password');
+    const emailValue = await getValueByKey('email');
+	const passwordValue = await getValueByKey('password');
 
 	let params = {
 	  user: emailValue,
@@ -115,9 +105,6 @@ export default class App extends Component {
 	});
   }
 
-  //初始化默认已经登陆状态 isLogin: true, ，让用户也能访问 Courses 等公开页面
-  //访问网络验证用户名密码，如果成功，状态不变，如果失败，跳到登陆页面，
-  //如果在登陆页面，点击 Back 也能访问公开页面
   render() {
 	return (
 		<Root>

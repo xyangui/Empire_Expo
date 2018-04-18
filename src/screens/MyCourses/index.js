@@ -19,12 +19,14 @@ import {
   List
 } from "native-base";
 
-import {Font, SecureStore} from 'expo';
+import { Font } from 'expo';
 import Header from '../HeaderMenu';
 
 import styles from './style';
 import stylesContainer from '../styles';
+
 import {fetchNoProgress} from "../MyFetch";
+import Loading from '../Loading';
 
 const cardImage = require("../../../assets/mycourse_cover.png");
 const logo = require("../../../assets/logo_cclt.jpg");
@@ -49,93 +51,51 @@ const datas = [
 
 export default class MyCourses extends Component {
 
-  // _getValue = async key => {
-  // try {
-  //   const fetchedValue = await SecureStore.getItemAsync(key, {});
-  //   // Alert.alert('Success!', 'Fetched value: ' + fetchedValue, [
-  // 	// { text: 'OK', onPress: () => {} },
-  //   // ]);
-  //
-  //     let fff = fetchedValue;
-  //   let ff = fetchedValue;
-  //
-  //     return fetchedValue;
-  // } catch (e) {
-  //   Alert.alert('Error!', e.message, [{ text: 'OK', onPress: () => {} }]);
-  // }
-  // };
-  //
-  // constructor(props) {
-  // super(props);
-  //
-  // let email11 = this._getValue('email');
-  // let password11 = this._getValue('password');
-  //
-  // let ff = 22;
-  //
-  // }
-
-
   constructor(props) {
 	super(props);
 
-	const {params} = this.props.navigation.state;
+	//const {params} = this.props.navigation.state;
 
 	this.state = {
-	  isLogSidebar: params.isLogin
+	  isLogin: gIsLogin,
+	  isGetData: false,
+	  datas: null,
 	};
-
-    let email33 = gLoginEmail;
-
-    global.gLoginEmail = 'aaa88990';
-
-	let email334 = gLoginEmail;
-    let email34 = gLoginEmail;
   }
 
-  // async componentDidMount() {
-  //全局变量
-  //   let params = {
-  //   	email: gLoginEmail
-  //   };
-  //
-  //   fetchNoProgress('/studentCourse', 'POST', params)
-  //     .then(responseJson => {
-  //
-  //       LayoutAnimation.easeInEaseOut();
-  //       this.setState({
-  //         isLoading: false
-  //       });//去掉旋转进度条
-  //
-  //       if (responseJson.state === 'success') {
-  //
-  //         //存储用户名密码
-  //         this._setValue('email', email);
-  //         this._setValue('password', password);
-  //         //登陆成功跳页
-  //         //Alert.alert('successful3334');
-  //         this.props.navigation.navigate('Courses');
-  //
-  //       } else {
-  //
-  //         //登陆失败弹出对话框
-  //         Alert.alert('Wrong email or password !');
-  //       }
-  //
-  //     }).catch(error => {
-  //
-  //     this.setState({
-  //       isLoading: false
-  //     });//去掉旋转进度条
-  //
-  //     Alert.alert('Login fail !');
-  //   });
-  // }
+  async componentDidMount() {
+
+
+    let dd = gLoginEmail;
+    let dd3 = gIsLogin;
+
+
+    let params = {
+    	email: gLoginEmail
+    };
+
+    fetchNoProgress('/studentCourse', 'POST', params)
+      .then(responseJson => {
+
+        let surname = responseJson.surname;
+        let surname2 = responseJson.first_name;
+
+        let courses = responseJson.course-info.courses;
+      	let courses = responseJson.course-info.courses;
+      	let courseinfo = responseJson.course-info;
+
+        this.setState({
+          isGetData: true,
+          courses: responseJson.course-info.courses,
+        });
+
+      });
+  }
 
   render() {
 	return (
 
-		!this.state.isLogSidebar ?
+		!this.state.isLogin ?
 			this.props.navigation.navigate("Login")
 
 			:
@@ -145,6 +105,10 @@ export default class MyCourses extends Component {
 			  <Header navig={this.props.navigation.navigate} title='My Courses'/>
 
 			  <Content padder>
+
+
+
+
 				<List dataArray={datas}
 					  renderRow={data =>
 
