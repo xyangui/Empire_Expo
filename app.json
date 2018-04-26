@@ -21,7 +21,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.empirecollege.education"
+    },
+    "android": {
+      "package": "com.empirecollege.education"
     }
   }
 }

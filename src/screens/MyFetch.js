@@ -73,3 +73,71 @@ export function fetchNoProgress(url, method, params = '', isErrorAlert = true){
   }
 }
 
+export function fetchNoProgressUrl(url, method, params = '', isErrorAlert = true){
+
+  let header = {
+    "Content-Type": "application/json;charset=UTF-8"
+    //,
+    //"accesstoken":token  //用户登陆后返回的token，某些涉及用户数据的接口需要在header中加上token
+  };
+
+  if(params == ''){
+
+    return new Promise(function (resolve, reject) {
+      fetch(common_url + url, {
+
+        method: method,
+        headers: header
+
+      }).then((response) => response.json())
+        .then((responseData) => {
+
+          resolve(responseData);
+        })
+        .catch( (error) => {
+
+          if(isErrorAlert) {
+            Alert.alert('Request fail !');
+          }
+          reject(error);
+        });
+    });
+
+  }else{
+
+    //let strUrl = common_url + url;
+    //let newUrl = new URL("https://geo.example.org/api");
+    //newUrl.search = new URLSearchParams(params);
+
+    let esc = encodeURIComponent;
+    let query = Object.keys(params)
+      .map(k => esc(k) + '=' + esc(params[k]))
+      .join('&');
+
+    let newUrl = common_url + url + '?' + query;
+
+    return new Promise(function (resolve, reject) {
+      fetch(newUrl, {
+
+        method: method,
+        headers: header,
+
+        //params: {email: "ivan@empire.edu.au",}
+        //body: JSON.stringify(params)   //body参数，通常需要转换成字符串后服务器才能解析
+
+      }).then((response) => response.json())
+        .then((responseData) => {
+
+          resolve(responseData);
+        })
+        .catch( (error) => {
+
+          if(isErrorAlert) {
+            Alert.alert('Request fail !');
+          }
+          reject(error);
+        });
+    });
+  }
+}
+

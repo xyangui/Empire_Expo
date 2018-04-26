@@ -25,7 +25,7 @@ import Header from '../HeaderMenu';
 import styles from './style';
 import stylesContainer from '../styles';
 
-import {fetchNoProgress} from "../MyFetch";
+import {fetchNoProgressUrl} from "../MyFetch";
 import Loading from '../Loading';
 
 const cardImage = require("../../../assets/mycourse_cover.png");
@@ -66,10 +66,11 @@ export default class MyCourses extends Component {
   async componentDidMount() {
 
     let params = {
-      email: gLoginEmail
+      //email: gLoginEmail
+      email: 'ivan@empire.edu.au'
     };
 
-    fetchNoProgress('/studentCourse', 'POST', params)
+    fetchNoProgressUrl('/studentCourse', 'GET', params)
       .then(responseJson => {
 
         // {
