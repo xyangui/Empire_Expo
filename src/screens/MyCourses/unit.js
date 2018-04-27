@@ -18,7 +18,7 @@ import Header from '../HeaderGoback';
 import styles from './style';
 import stylesContainer from '../styles.js';
 
-import {fetchNoProgress} from "../MyFetch";
+import {fetchUrlParams} from "../MyFetch";
 import Loading from '../Loading';
 
 // const datas = [
@@ -49,11 +49,14 @@ export default class Unit extends Component {
 
   async componentDidMount() {
 
-    let params = {
-      email: gLoginEmail
+    const {params} = this.props.navigation.state;
+
+    let urlParams = {
+      email: gLoginEmail,
+      courseCode: params.CourseCode,
     };
 
-    fetchNoProgress('/studentUnit', 'POST', params)
+    fetchUrlParams('/studentUnit', 'POST', urlParams)
       .then(responseJson => {
 
         // {

@@ -18,7 +18,7 @@ import {
 import Header from '../HeaderGoback';
 import stylesContainer from '../styles.js';
 
-import {fetchNoProgress} from "../MyFetch";
+import {fetchUrlParams} from "../MyFetch";
 import Loading from '../Loading';
 
 const datas = [
@@ -49,14 +49,14 @@ export default class MyClass extends Component {
 
   async componentDidMount() {
 
-    //email: gLoginEmail,
-    let params = {
+    const {params} = this.props.navigation.state;
 
-      email: 'ivan@empire.edu.au',
-      courseCode: 'EAP001',
+    let urlParams = {
+      email: gLoginEmail,
+      courseCode: params.CourseCode,
     };
 
-    fetchNoProgress('/studentLesson', 'GET', params)
+    fetchUrlParams('/studentLesson', 'GET', urlParams)
       .then(responseJson => {
 
         // {
@@ -113,12 +113,9 @@ export default class MyClass extends Component {
         //   ],
         // }
 
-        let dd = 22;
-        let gg = 33;
-
         this.setState({
           isGetData: true,
-          lessons: responseJson.unitInfo.classes,
+          lessons: responseJson.unitData,
         });
 
       });
@@ -138,21 +135,21 @@ export default class MyClass extends Component {
         {this.state.isGetData ?
 
           <List
-            dataArray={datas}
-            renderRow={data =>
+            dataArray={lessons}
+            renderRow={lesson =>
 
               <View>
                 <ListItem itemDivider>
-                  <Text>{data.title}</Text>
+                  <Text>{lesson.unitCode}</Text>
                 </ListItem>
 
                 <List
-                  dataArray={data.text}
-                  renderRow={datatext =>
+                  dataArray={lesson.data}
+                  renderRow={data =>
 
                     <ListItem>
                       <Body>
-                      <Text>{datatext}</Text>
+                      <Text>{data.lesson_name}</Text>
                       </Body>
                       <Right>
                         <Icon name="arrow-forward"/>
@@ -163,6 +160,33 @@ export default class MyClass extends Component {
               </View>
             }
           />
+
+          // <List
+          //   dataArray={datas}
+          //   renderRow={data =>
+          //
+          //     <View>
+          //       <ListItem itemDivider>
+          //         <Text>{data.title}</Text>
+          //       </ListItem>
+          //
+          //       <List
+          //         dataArray={data.text}
+          //         renderRow={datatext =>
+          //
+          //           <ListItem>
+          //             <Body>
+          //             <Text>{datatext}</Text>
+          //             </Body>
+          //             <Right>
+          //               <Icon name="arrow-forward"/>
+          //             </Right>
+          //           </ListItem>
+          //         }
+          //       />
+          //     </View>
+          //   }
+          // />
 
           :  //不加 Content 时，<Loading/> 在垂直水平方向都局中
           <Content padder>
