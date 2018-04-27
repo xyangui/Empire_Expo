@@ -56,7 +56,7 @@ export default class Unit extends Component {
       courseCode: params.CourseCode,
     };
 
-    fetchUrlParams('/studentUnit', 'POST', urlParams)
+    fetchUrlParams('/studentUnit', 'GET', urlParams)
       .then(responseJson => {
 
         // {
@@ -64,25 +64,38 @@ export default class Unit extends Component {
         //   "firstName": "ivan",
         //   "surname": "ivan",
         //   "campus": "melbourne",
-        //   "unitInfo": {
-        //     "units": [
+        //   "courseCode": "EAP001",
+        //   "data":
+        //   {
+        //     "units":
+        //     [
         //       {
         //         "unit_name": "business",
-        //         "unit_code": "67063",
+        //         "unit_code": "67063ii",
         //         "unit_description": ""
         //       },
         //       {
         //         "unit_name": "EAP unit",
-        //         "unit_code": "eapunit001",
+        //         "unit_code": "zeapunit001",
         //         "unit_description": "eap001 unit description update"
+        //       },
+        //       {
+        //         "unit_name": "unit2",
+        //         "unit_code": "unit2",
+        //         "unit_description": "qwe"
+        //       },
+        //       {
+        //         "unit_name": "business",
+        //         "unit_code": "67063ii",
+        //         "unit_description": ""
         //       }
-        //     ],
+        //     ]
         //   }
         // }
 
         this.setState({
           isGetData: true,
-          units: responseJson.unitInfo.units,
+          units: responseJson.data.units,
         });
 
       });
