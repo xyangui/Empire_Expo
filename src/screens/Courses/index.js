@@ -21,8 +21,8 @@ import {Grid, Row} from 'react-native-easy-grid';
 import Header from '../HeaderMenu';
 import MySwiper from './swiper/index';
 
-import stylesContainer from '../styles.js';
-import {fetchNoProgress} from '../MyFetch';
+import gStyles from '../styles.js';
+import {fetchGetNoParams} from '../MyFetch';
 import Loading from '../Loading';
 
 // const datas = [
@@ -58,7 +58,7 @@ export default class Courses extends Component {
 
   async componentDidMount() {
 
-    fetchNoProgress('/allCourses', 'GET')
+    fetchGetNoParams('/allCourses')
       .then(responseJson => {
 
         this.setState({
@@ -74,7 +74,7 @@ export default class Courses extends Component {
     let {courses} = this.state;
 
     return (
-      <Container style={stylesContainer.container}>
+      <Container style={gStyles.container}>
 
         <Header navig={this.props.navigation.navigate} title='Courses'/>
 

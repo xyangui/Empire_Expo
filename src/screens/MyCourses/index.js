@@ -25,29 +25,29 @@ import Header from '../HeaderMenu';
 import styles from './style';
 import stylesContainer from '../styles';
 
-import {fetchNoProgressUrl} from "../MyFetch";
+import {fetchUrlParams} from "../MyFetch";
 import Loading from '../Loading';
 
 const cardImage = require("../../../assets/mycourse_cover.png");
 const logo = require("../../../assets/logo_cclt.jpg");
 
-const datas = [
-  {
-    img: require("../../../assets/logo_naati.png"),
-    title: "NATTI",
-    text: "Empire"
-  },
-  {
-    img: require("../../../assets/logo_cclt.jpg"),
-    title: "CCLT",
-    text: "Empire"
-  },
-  {
-    img: require("../../../assets/logo_pte.jpg"),
-    title: "PTE",
-    text: "Empire"
-  }
-];
+// const datas = [
+//   {
+//     img: require("../../../assets/logo_naati.png"),
+//     title: "NATTI",
+//     text: "Empire"
+//   },
+//   {
+//     img: require("../../../assets/logo_cclt.jpg"),
+//     title: "CCLT",
+//     text: "Empire"
+//   },
+//   {
+//     img: require("../../../assets/logo_pte.jpg"),
+//     title: "PTE",
+//     text: "Empire"
+//   }
+// ];
 
 export default class MyCourses extends Component {
 
@@ -70,7 +70,7 @@ export default class MyCourses extends Component {
       email: 'ivan@empire.edu.au'
     };
 
-    fetchNoProgressUrl('/studentCourse', 'GET', params)
+    fetchUrlParams('/studentCourse', 'GET', params)
       .then(responseJson => {
 
         // {

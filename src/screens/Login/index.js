@@ -15,7 +15,8 @@ import {
 import { Font } from 'expo';
 import { Input, Button } from 'react-native-elements'
 
-import { fetchNoProgress } from '../MyFetch';
+import gStyles from '../styles.js';
+import { fetchBodyParams } from '../MyFetch';
 import { saveKeyValue } from '../SecureStore';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -112,7 +113,7 @@ export default class Login extends Component {
 		password: password
 	  };
 
-      fetchNoProgress('/login', 'POST', params, false)
+      fetchBodyParams('/login', 'POST', params, false)
 	  .then(responseJson => {
 
 		LayoutAnimation.easeInEaseOut();
@@ -298,12 +299,12 @@ export default class Login extends Component {
 						  errorMessage={isConfirmationValid ? null : 'Please enter the same password'}
 					  />}
 					  <Button
-						  buttonStyle={styles.loginButton}
+						  buttonStyle={[gStyles.button, styles.loginButton]}
 						  containerStyle={{marginTop: 32, flex: 0}}
 						  activeOpacity={0.8}
 						  title={isLoginPage ? 'LOGIN' : 'SIGN UP'}
 						  onPress={isLoginPage ? this.login : this.signUp}
-						  titleStyle={styles.loginTextButton}
+						  titleStyle={gStyles.buttonText}
 						  loading={isLoading}
 						  disabled={isLoading}
 					  />
@@ -357,15 +358,15 @@ const styles = StyleSheet.create({
 	alignItems: 'center',
 	justifyContent: 'center',
   },
-  loginTextButton: {
-	fontSize: 16,
-	color: 'white',
-	fontWeight: 'bold',
-  },
+  // loginTextButton: {
+	// fontSize: 16,
+	// color: 'white',
+	// fontWeight: 'bold',
+  // },
   loginButton: {
-	backgroundColor: 'rgba(232, 147, 142, 1)',
-	borderRadius: 10,
-	height: 50,
+	//backgroundColor: 'rgba(232, 147, 142, 1)',
+	//borderRadius: 10,
+	//height: 50,
 	width: 200,
   },
   titleContainer: {
