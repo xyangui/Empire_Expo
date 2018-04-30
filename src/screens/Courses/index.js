@@ -92,7 +92,11 @@ export default class Courses extends Component {
               <List
                 dataArray={courses}
                 renderRow={course =>
-                  <ListItem thumbnail>
+                  <ListItem
+                    thumbnail
+                    button
+                    onPress={() => this.props.navigation.navigate("Login")}
+                  >
                     <Left>
                       <Thumbnail square size={55} source={logo}/>
                     </Left>

@@ -35,19 +35,27 @@ const datas = [
     bg: "#C5F442"
   },
   {
-      name: "My Courses",
-      route: "MyCourses",
-      icon: "ios-book-outline",
-      bg: "#13b9f4",
-      types: "4"
+    name: "Courses",
+    route: "MyCourses",
+    icon: "ios-book-outline",
+    bg: "#13b9f4",
+    //types: "4"
   },
 
   {
-    name: "My Profile",
+    name: "Timetable",
+    route: "Timetable",
+    icon: "ios-alarm-outline",
+    bg: "#13b9f4",
+    //types: "4"
+  },
+
+  {
+    name: "Profile",
     route: "MyProfile",
     icon: "ios-person",
     bg: "#477EEA",
-    types: "8"
+    //types: "8"
   },
   {
     name: "Login",

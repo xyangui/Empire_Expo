@@ -20,16 +20,22 @@ import MyCourses from "./screens/MyCourses";
 import Unit from "./screens/MyCourses/unit";
 import MyClass from "./screens/MyCourses/class";
 
+import Timetable from "./screens/Timetable/index";
+import ClassAgenda from "./screens/Timetable/agenda";
+import ClassCalendars from "./screens/Timetable/calendars";
+
 import MyProfile from "./screens/MyProfile/index";
 import Login from "./screens/Login/index";
 
-import { fetchNoProgress } from "./screens/MyFetch";
+import { fetchBodyParams } from "./screens/MyFetch";
 import { getValueByKey } from './screens/SecureStore';
 
 const Drawer = DrawerNavigator(
   {
     Courses: { screen: Courses },   // Courses 是公开页面，无需登陆状态
     MyCourses: { screen: MyCourses },
+
+    Timetable: { screen: Timetable },
 
     MyProfile: { screen: MyProfile },
     Login: { screen: Login }
@@ -48,7 +54,10 @@ const AppNavigator = StackNavigator(
     Drawer: { screen: Drawer },
 
     Unit: { screen: Unit },
-    MyClass: {screen: MyClass },
+    MyClass: { screen: MyClass },
+
+    ClassAgenda: { screen: ClassAgenda },
+    ClassCalendars: { screen: ClassCalendars },
 
     Login: { screen: Login },
   },
@@ -94,7 +103,7 @@ export default class App extends Component {
 	  password: passwordValue
 	};
 
-    fetchNoProgress('/login', 'POST', params)
+    fetchBodyParams('/login', 'POST', params)
 	.then(responseJson => {
 
 	  if (responseJson.state === 'success') {
